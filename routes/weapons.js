@@ -1,18 +1,18 @@
 import express from 'express';
 import { getDBClient } from '../database.js';
 import { ROUTES } from '../constants/route.js';
-const charactersRouter = express.Router();
+const weaponsRouter = express.Router();
 // Middleware
-charactersRouter.use((req, res, next) => {
+weaponsRouter.use((req, res, next) => {
   console.log('Working');
   next();
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
-charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
+weaponsRouter.get(ROUTES.WEAPONS, async (req, res) => {
   try {
     const dbClient = getDBClient()
-    const collection = dbClient.collection('characters'); // Replace with your collection name
+    const collection = dbClient.collection('weapons'); // Replace with your collection name
 
     const data = await collection.find().toArray();
     res.send(data); // Assuming you have a data-page.ejs template
@@ -22,19 +22,30 @@ charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
   }
 });
 
-charactersRouter.get(ROUTES.MAJOR_CHARACTER_INFORMATION, async (req, res) => {
+weaponsRouter.post(ROUTES.WEAPONS_INFORMATION , async (req, res) => {
+    const {weaponName} = req.body;
+     if (!weaponName) {
+      res.status(400).send('Name is required.');
+      return;
+    }
+
   try {
     const dbClient = getDBClient()
-    const collection = dbClient.collection('characters');
-    const data = await collection.find().toArray();
-    const protagonists = data[0]?.protagonists
-    const majorCharacters = data[1]?.majorCharacters
-    const vanDerLindeGang = data[0]?.vanDerLindeGang
-    res.send( { 'majorCharacters': {protagonists, vanDerLindeGang, majorCharacters }}); // Assuming you have a data-page.ejs template
+    const collection = dbClient.collection('weapons');
+      const data = await collection.find().toArray();
+        
+
+
+    if (!weaponName) {
+        res.status(404).send('Weapon Name is not found.');
+        return;
+      }
+
+      res.send({data});
   } catch (error) {
     console.error('Failed to fetch data from MongoDB:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-export default charactersRouter
+export default weaponsRouter
