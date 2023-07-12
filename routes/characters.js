@@ -8,13 +8,28 @@ charactersRouter.use((req, res, next) => {
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
-charactersRouter.get('/getdata', async (req, res) => {
+charactersRouter.get('/get/characters', async (req, res) => {
   try {
     const dbClient = getDBClient()
     const collection = dbClient.collection('characters'); // Replace with your collection name
 
     const data = await collection.find().toArray();
-    res.send({ data }); // Assuming you have a data-page.ejs template
+    res.send(data); // Assuming you have a data-page.ejs template
+  } catch (error) {
+    console.error('Failed to fetch data from MongoDB:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+charactersRouter.get('/get/characters/major', async (req, res) => {
+  try {
+    const dbClient = getDBClient()
+    const collection = dbClient.collection('characters');
+    const data = await collection.find().toArray();
+    const protagonists = data[0]?.protagonists
+    const majorCharacters = data[1]?.majorCharacters
+    const vanDerLindeGang = data[0]?.vanDerLindeGang
+    res.send( { 'majorCharacters': {protagonists, vanDerLindeGang, majorCharacters }}); // Assuming you have a data-page.ejs template
   } catch (error) {
     console.error('Failed to fetch data from MongoDB:', error);
     res.status(500).send('Internal Server Error');
