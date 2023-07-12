@@ -24,6 +24,7 @@ horsesRouter.get(ROUTES.HORSES, async (req, res) => {
 
 horsesRouter.post(ROUTES.HORSE_INFORMATION, async (req, res) => {
     const {horseName} = req.body;
+    
      if (!horseName) {
       res.status(400).send('Name is required.');
       return;
@@ -33,7 +34,10 @@ horsesRouter.post(ROUTES.HORSE_INFORMATION, async (req, res) => {
     const dbClient = getDBClient()
     const collection = dbClient.collection('horses');
     const data = await collection.find().toArray()
-    const userHorseInfo = data[1].horses_info.filter(horse => horse.name === horseName)
+    const userHorseInfo = data[1].horses_info.filter(horse => {
+        const horseNameArray = horseName.split(",").map(name => name.trim());
+        return horseNameArray.includes(horse.name);
+    })
 
 
 
