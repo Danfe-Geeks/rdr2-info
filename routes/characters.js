@@ -1,5 +1,6 @@
 import express from 'express';
 import { getDBClient } from '../database.js';
+import { ROUTES } from '../constants/route.js';
 const charactersRouter = express.Router();
 // Middleware
 charactersRouter.use((req, res, next) => {
@@ -8,7 +9,7 @@ charactersRouter.use((req, res, next) => {
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
-charactersRouter.get('/get/characters', async (req, res) => {
+charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
   try {
     const dbClient = getDBClient()
     const collection = dbClient.collection('characters'); // Replace with your collection name
@@ -21,7 +22,7 @@ charactersRouter.get('/get/characters', async (req, res) => {
   }
 });
 
-charactersRouter.get('/get/characters/major', async (req, res) => {
+charactersRouter.get(ROUTES.MAJOR_CHARACTER_INFORMATION, async (req, res) => {
   try {
     const dbClient = getDBClient()
     const collection = dbClient.collection('characters');

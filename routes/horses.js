@@ -1,5 +1,6 @@
 import express from 'express';
 import { getDBClient } from '../database.js';
+import { ROUTES } from '../constants/route.js';
 const horsesRouter = express.Router();
 // Middleware
 horsesRouter.use((req, res, next) => {
@@ -8,7 +9,7 @@ horsesRouter.use((req, res, next) => {
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
-horsesRouter.get('/get/horses', async (req, res) => {
+horsesRouter.get(ROUTES.HORSES, async (req, res) => {
   try {
     const dbClient = getDBClient()
     const collection = dbClient.collection('horses'); // Replace with your collection name
@@ -21,7 +22,7 @@ horsesRouter.get('/get/horses', async (req, res) => {
   }
 });
 
-horsesRouter.post('/get/horses/information', async (req, res) => {
+horsesRouter.post(ROUTES.HORSE_INFORMATION, async (req, res) => {
     const {horseName} = req.body;
      if (!horseName) {
       res.status(400).send('Name is required.');

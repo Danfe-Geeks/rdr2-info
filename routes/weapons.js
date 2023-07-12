@@ -1,5 +1,6 @@
 import express from 'express';
 import { getDBClient } from '../database.js';
+import { ROUTES } from '../constants/route.js';
 const weaponsRouter = express.Router();
 // Middleware
 weaponsRouter.use((req, res, next) => {
@@ -8,7 +9,7 @@ weaponsRouter.use((req, res, next) => {
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
-weaponsRouter.get('/get/weapons', async (req, res) => {
+weaponsRouter.get(ROUTES.WEAPONS, async (req, res) => {
   try {
     const dbClient = getDBClient()
     const collection = dbClient.collection('weapons'); // Replace with your collection name
@@ -21,7 +22,7 @@ weaponsRouter.get('/get/weapons', async (req, res) => {
   }
 });
 
-weaponsRouter.post('/get/weapons/information', async (req, res) => {
+weaponsRouter.post(ROUTES.WEAPONS_INFORMATION , async (req, res) => {
     const {weaponName} = req.body;
      if (!weaponName) {
       res.status(400).send('Name is required.');
