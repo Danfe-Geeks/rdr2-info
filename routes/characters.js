@@ -13,10 +13,10 @@ charactersRouter.use((req, res, next) => {
 charactersRouter.get( '/', async (req, res) => {
   try {
     const dbClient = getDBClient()
-    const collection = dbClient.collection('characters'); 
+    // const collection = dbClient.collection('characters'); 
     res.send(
       `It is working
-      this is the 1 of the collection it has.${collection}
+      this is the 1 of the collection it has.${dbClient}
       If you do not see the collection name, your database is not connected.`
 
     ); 
