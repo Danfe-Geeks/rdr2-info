@@ -22,7 +22,7 @@ charactersRouter.get( '/', async (req, res) => {
     ); 
   } catch (error) {
     console.error('Failed to fetch data from MongoDB:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Internal Server Error', dbClient, collection);
   }
 });
 charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
