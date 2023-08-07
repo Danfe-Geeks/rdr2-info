@@ -12,8 +12,7 @@ charactersRouter.use((req, res, next) => {
 charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
   try {
     const dbClient = getDBClient()
-    const collection = dbClient.collection('characters'); // Replace with your collection name
-
+    const collection = dbClient.collection('characters'); 
     const data = await collection.find().toArray();
     res.send(data); // Assuming you have a data-page.ejs template
   } catch (error) {
