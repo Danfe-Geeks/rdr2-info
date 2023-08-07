@@ -5,7 +5,8 @@ dotenv.config();
 // const uri = "mongodb+srv://cluster0.fdwj189.mongodb.net/?authMechanism=MONGODB-X509&authSource=%24external&tls=true&tlsCertificateKeyFile=%2FUsers%2Fprakashthakuri%2FDownloads%2FX509-cert-5765427148407296337.pem"
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
  
-const uri = process.env.DATABASE_CONNECTION
+// const uri = process.env.DATABASE_CONNECTION
+const uri = 'mongodb+srv://rdr2:DYZFyLYWrIuyGRU0@cluster0.fdwj189.mongodb.net/'
 let dbClient;
 
 export async function connectToDatabase() {
