@@ -9,6 +9,22 @@ charactersRouter.use((req, res, next) => {
 });
 
 // Route to fetch data from MongoDB collection and display it in a new page
+
+charactersRouter.get( '/', async (req, res) => {
+  try {
+    const dbClient = getDBClient()
+    const collection = dbClient.collection('characters'); 
+    res.send(
+      `It is working
+      this is the 1 of the collection it has.${collection}
+      If you do not see the collection name, your database is not connected.`
+
+    ); 
+  } catch (error) {
+    console.error('Failed to fetch data from MongoDB:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 charactersRouter.get(ROUTES.CHARACTER, async (req, res) => {
   try {
     const dbClient = getDBClient()

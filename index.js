@@ -14,6 +14,7 @@ const port = 8080;
 // Connect to MongoDB
 connectToDatabase();
 
+
 // Use routes
 app.use('/', charactersRouter);
 app.use('/', characterInformationRouter)
