@@ -16,7 +16,7 @@ charactersRouter.get( '/', async (req, res) => {
     // const collection = dbClient.collection('characters'); 
     res.send(
       `It is working
-      this is the 1 of the collection it has.${dbClient}
+      this is the 1 of the collection it has.${dbClient.listCollections()}
       If you do not see the collection name, your database is not connected.`
 
     ); 
